@@ -1,4 +1,33 @@
+module functions
+implicit none
+
+contains
+FUNCTION orden(val, n) ! função que ordena uma array em ordem crescente excluindo termos iguais
+        integer :: m = 0, n
+        real :: valor_min, valor_max
+        real, dimension(n) :: val, y
+        real, dimension(:), allocatable :: orden
+        
+        valor_min = minval(val)-1
+        valor_max = maxval(val)
+        
+        do while (valor_min<valor_max)
+            m = m+1
+            valor_min = minval(val, mask=val>valor_min)
+            y(m) = valor_min
+        enddo
+        
+        if(allocated(orden)) then
+            orden = y(1:m)
+        else
+            allocate(orden(m), source=y(1:m))
+        endif
+    END FUNCTION orden
+
+end module functions
+
 program exer04
+    use functions
     IMPLICIT NONE
     real, dimension(3) :: v1, v2, v3, v4, v5, v6
     real :: a1, a2, a3, a4, vol, a_t, x
@@ -46,39 +75,14 @@ program exer04
     vol = abs((v4(1)*v1(2)*v2(3) + v4(2)*v1(3)*v2(1) + v4(3)*v1(1)*v2(2)) &
             - (v2(1)*v1(2)*v4(3) + v2(2)*v1(3)*v4(1) + v2(3)*v1(1)*v4(2)))/6
 
-  sort_a = (/a1,a2,a3,a4/)
+    sort_a = (/a1,a2,a3,a4/)
   
-  a_t = a1+a2+a3+a4
-
-FUNCTION orden(val, n) ! função que ordena uma array em ordem crescente excluindo termos iguais
-        integer :: m = 0, n
-        real :: valor_min, valor_max
-        real, dimension(n), intent(in) :: val, y
-        real, dimension(:), allocatable :: orden
-        
-        valor_min = minval(val)-1
-        valor_max = maxval(val)
-        
-        do while (valor_min<valor_max)
-            m = m+1
-            valor_min = minval(val, mask=val>valor_min)
-            y(m) = valor_min
-        enddo
-        
-        if(allocated(orden)) then
-            orden = y(1:m)
-        else
-            allocate(orden(m), source=y(1:m))
-        endif
-    END FUNCTION orden
-
-
+    a_t = a1+a2+a3+a4
 
     open(3, file = "tetra_out.dat", status = "replace")
-    write(3,*) orden(sort_a, 4)
     write(3,*) vol
     write(3,*) a_t
+    write(3,*) orden(sort_a, 4)
     close(3)
 
 end program
-    
