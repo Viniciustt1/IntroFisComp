@@ -1,10 +1,12 @@
 module function
 implicit none
 contains   
+
 function escalar(x, y, n) !função que cálcula o produto escalar de dois vetores
+integer :: i, n 
 real, dimension(n,1), intent(in) :: x, y
 real :: escalar 
-integer :: i, n 
+
     
 escalar = 0
 
@@ -18,9 +20,7 @@ function prod(A, B) !função para a multiplicação de matrizes
 integer :: i, j, n
 real, dimension(n,n), intent(in) :: A
 real, dimension(n,1) :: prod, B
-
-    
-   
+ 
 do i = 1, n 
 do j = 1, n 
 prod(i,1) = 0
