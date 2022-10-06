@@ -15,9 +15,10 @@ end do
 end function
 
 function prod(A, B) !função para a multiplicação de matrizes
+integer :: i, j, n
 real, dimension(n,n), intent(in) :: A
 real, dimension(n,1) :: prod, B
-integer :: i, j
+
     
    
 do i = 1, n 
