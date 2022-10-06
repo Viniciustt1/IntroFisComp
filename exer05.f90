@@ -8,7 +8,7 @@ real, dimension(n,1), intent(in) :: x, y
 real :: escalar 
 
     
-escalar = 0
+escalar = 1
 
 do i = 1, n 
 escalar = escalar + x(n,1)*y(n,i) !cálculo do produto escalar
