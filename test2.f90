@@ -22,23 +22,24 @@ subroutine sin_s(x, termos) !subrotina para precisão simples
      else 
       exit
      end if
+    end do
 
      precisao = abs(last_S1)/sin1 !divide o último termo QUE MODIFICA pela valor do sin
      termos(1) = precisao
      termos(2) = sin1
      
      n = 1
-     sin1 = 0.e0 !reinicializando os valores
-    end do
+     sin1 = 0 !reinicializando os valores
+    
 end subroutine sin_s
 
 subroutine sin_d(x, termos) !subrotina para precisão dupla
     implicit none
     integer :: fat, n, i
-    real(4), intent(in) :: x
-    real(4), dimension(2), intent(out) :: termos
-    real(4) :: sin2 = 0.e0, precisao, S2, last_S2
-    real(4), dimension(2) :: termos_d
+    real(8), intent(in) :: x
+    real(8), dimension(2), intent(out) :: termos
+    real(8) :: sin2 = 0.d0, precisao, S2, last_S2
+    real(8), dimension(2) :: termos_d
     
     
     n = 1
@@ -55,15 +56,16 @@ subroutine sin_d(x, termos) !subrotina para precisão dupla
      else 
       exit
      end if
+    end do
 
      precisao = abs(last_S2)/sin2 !divide o último termo QUE MODIFICA pela valor do sin
      termos(1) = precisao
      termos(2) = sin2
 
     n = 1
-    sin2 = 0.e0
+    sin2 = 0
 
-    end do
+    
 end subroutine sin_d
 
 program exer02
@@ -78,44 +80,44 @@ program exer02
 
     ! x = 0.1:
 
-    call seno_s(x1, termos_s)
+    call sin_s(x1, termos_s)
     print *, x1, termos_s(1)
     
     ! x = y = 0.2:
 
-    call seno_s(y1, termos_s)
-    print *, y1, termos_s(2)
+    call sin_s(y1, termos_s)
+    print *, y1, termos_s(1)
 
     ! x = z = 0.3:
 
-    call seno_s(z1, termos_s)
-    print *, z1, termos_s(2)
+    call sin_s(z1, termos_s)
+    print *, z1, termos_s(1)
 
     ! x = w = 0.4:
 
-    call seno_s(w1, termos_s)
-    print *, w1, termos_s(2)
+    call sin_s(w1, termos_s)
+    print *, w1, termos_s(1)
 
     print*, "PRECISÃO DUPLA"
 
     ! x = 0.1:
 
-    call seno_d(x2, termos_d)
+    call sin_d(x2, termos_d)
     print *, x2, termos_d(1)
     
     ! x = y = 0.2:
 
-    call seno_d(y2, termos_d)
-    print *, y2, termos_d(2)
+    call sin_d(y2, termos_d)
+    print *, y2, termos_d(1)
 
     ! x = z = 0.3:
 
-    call seno_d(z2, termos_d)
-    print *, z2, termos_d(2)
+    call sin_d(z2, termos_d)
+    print *, z2, termos_d(1)
 
     ! x = w = 0.4:
 
-    call seno_d(w2, termos_d)
-    print *, w2, termos_d(2)
+    call sin_d(w2, termos_d)
+    print *, w2, termos_d(1)
 
 end program
