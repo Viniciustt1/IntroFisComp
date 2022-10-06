@@ -16,7 +16,7 @@ end do
  
 end function
 
-function prod(A, B) !função para a multiplicação de matrizes
+function prod(A, B, n) !função para a multiplicação de matrizes
 integer :: i, j, n
 real, dimension(n,n), intent(in) :: A
 real, dimension(n,1) :: prod, B
@@ -35,7 +35,7 @@ program exer05
     use function
     IMPLICIT NONE
     real :: lbd, e !(erro)
-    integer, parameter :: dp = kind(0.d0)
+    integer, parameter :: dp = kind(0.e0)
     real(kind = dp), allocatable, dimension(:,:) :: M
     real, dimension(:,:), allocatable :: x, u
     integer :: i, j, n
@@ -58,7 +58,7 @@ program exer05
     end do
 
     do
-      u = prod(M, x) !definindo u como o produto da matriz M com a matriz x
+      u = prod(M, x, n) !definindo u como o produto da matriz M com a matriz x
 
       if (abs(lbd - escalar(x, u, n))/escalar(x, x, n) > e) then
         lbd = escalar(x, u, n)/escalar(x, x, n)
@@ -66,6 +66,7 @@ program exer05
       else
         exit
       end if
+    end do
 
     print*, lbd
     print*, x
