@@ -4,4 +4,5 @@ git commit -m "mensagem" - identificar as alterações que fiz no arquivo |
 git push - envia as alterações |
 git pull - receber as atlerações do remoto |
 git rm file.txt - deleta arquivos |
-os códigos estão em ordem de acordo com os projetos
+mkdir <pasta> - cria uma pasta (p/ organizar melhor as coisas)
+
